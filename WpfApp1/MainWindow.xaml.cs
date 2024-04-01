@@ -8,8 +8,6 @@ namespace TransparentClockApp
     public partial class MainWindow : Window
     {
         private DispatcherTimer? timer;
-        private bool isDragging = false;
-        private Point lastMousePosition;
 
         public MainWindow()
         {
@@ -52,59 +50,7 @@ namespace TransparentClockApp
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                isDragging = true;
-                lastMousePosition = e.GetPosition(this);
-            }
-        }
-
-        private void Window_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (isDragging)
-            {
-                Point currentMousePosition = e.GetPosition(this);
-                double deltaX = currentMousePosition.X - lastMousePosition.X;
-                double deltaY = currentMousePosition.Y - lastMousePosition.Y;
-                Left = Left + deltaX;
-                Top = Top + deltaY;
-                lastMousePosition = currentMousePosition;
-            }
-        }
-
-        private void Window_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                isDragging = false;
-            }
-        }
-
-        private void DragButton_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                isDragging = true;
-                lastMousePosition = e.GetPosition(this);
-            }
-        }
-
-        private void DragButton_MouseMove(object sender, MouseEventArgs e)
-        {
-            if (isDragging)
-            {
-                Point currentMousePosition = e.GetPosition(this);
-                double deltaX = currentMousePosition.X - lastMousePosition.X;
-                double deltaY = currentMousePosition.Y - lastMousePosition.Y;
-                Left = Left + deltaX;
-                Top = Top + deltaY;
-                lastMousePosition = currentMousePosition;
-            }
-        }
-
-        private void DragButton_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                isDragging = false;
+                this.DragMove();
             }
         }
     }
